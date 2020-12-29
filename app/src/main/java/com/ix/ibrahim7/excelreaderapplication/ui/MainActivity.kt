@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         mbinding.listItem.apply {
             adapter=weatherAdapter
         }
+
     }
 
 

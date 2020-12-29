@@ -19,6 +19,8 @@ import java.nio.charset.Charset
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
+    val TAG ="MainViewModel"
+
     val dataWeatherLiveData = MutableLiveData<ArrayList<WeatherSample>>()
     lateinit var line:String
 
@@ -31,22 +33,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 var number =0
                 while (reader.readLine() != null) {
                     line = reader.readLine()
-                    val x = line.split(",")
-                    arrayList.add(
-                        WeatherSample(
-                            x[0],
-                            x[1],
-                            x[2]
-                        )
-                    )
-                    Log.e("eee", x.toString())
+                    val list = line.split(",")
+                    arrayList.add(WeatherSample(list[0], list[1], list[2]))
                     number++
                     if (number <= line.length-1){
                         dataWeatherLiveData.postValue(arrayList)
                     }
                 }
             } catch (e: IOException) {
-                Log.v("eee", e.message.toString())
+                Log.v("$TAG error", e.message.toString())
             }
         }
     }
